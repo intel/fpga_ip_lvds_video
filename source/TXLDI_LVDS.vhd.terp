@@ -1,0 +1,21 @@
+-- megafunction wizard: %ALTLVDS_TX%
+-- GENERATION: STANDARD
+-- VERSION: WM1.0
+-- MODULE: ALTLVDS_TX 
+-- ============================================================
+-- CNX file retrieval info
+-- ============================================================
+-- Retrieval info: PRIVATE: CNX_CLOCK_MODE NUMERIC "0"
+-- Retrieval info: PRIVATE: CNX_DATA_RATE STRING "${data_rate}"
+-- Retrieval info: PRIVATE: CNX_DESER_FACTOR NUMERIC "7"
+-- Retrieval info: PRIVATE: CNX_NUM_CHANNEL NUMERIC "${num_channels}"
+-- Retrieval info: PRIVATE: CNX_PLL_FREQ STRING "${clk_freq}"
+-- Retrieval info: PRIVATE: CNX_COMMON_PLL NUMERIC "1"
+-- Retrieval info: PRIVATE: CNX_TX_LOCKED STRING "ON"
+-- Retrieval info: PRIVATE: CNX_PLL_ARESET NUMERIC "1"
+-- Retrieval info: PRIVATE: CNX_TX_OUTCLOCK STRING "ON"
+-- Retrieval info: PRIVATE: CNX_OUTCLOCK_DIVIDE_BY NUMERIC "7"
+-- Retrieval info: PRIVATE: CNX_TX_CORECLOCK STRING "ON"
+-- Retrieval info: PRIVATE: CNX_USE_CLOCK_RESC STRING "Auto selection"
+-- Retrieval info: PRIVATE: PLL_SELF_RESET_ON_LOSS_LOCK STRING "ON"
+-- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "${device_family}"

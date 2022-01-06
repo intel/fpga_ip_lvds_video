@@ -1,0 +1,181 @@
+-- VHDL Architecture: OpenLDI_TX
+--
+-- Description:
+--   OpenLDI Transmit function which interfaces with the CVO II component from
+--   the Altera VIP suite.
+--
+------------------------------------------------------------------------------------
+-- Copyright (c) 2021 Intel Corporation
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to
+-- deal in the Software without restriction, including without limitation the
+-- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+-- sell copies of the Software, and to permit persons to whom the Software is
+-- furnished to do so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+-- IN THE SOFTWARE.
+--
+------------------------------------------------------------------------------------
+--
+
+library ieee;
+use ieee.std_logic_1164.all; 
+USE ieee.std_logic_unsigned.all;
+
+--entity OpenLDI_TX is 
+entity ${substitute_entity_name} is 
+  generic (
+    G_BITS_PER_PIXEL : integer := 24;
+    G_JEIDA_MAP      : std_logic_vector(0 downto 0) := "0";
+    G_DUALPIXEL      : integer := 0);
+  port
+  (
+    RESET           :  in  std_logic;
+    LDI_CLK_IN      :  in  std_logic;
+    LDI_DATA_OUT    :  out std_logic_vector((G_DUALPIXEL+1)*(G_BITS_PER_PIXEL/6) - 1 downto 0);
+    LDI_CLK_OUT     :  out std_logic_vector(G_DUALPIXEL downto 0);
+    LDIPLL_LOCKED   :  out std_logic;
+    RGB_PCLK        :  out std_logic;
+    RGB_PCLK_OUT    :  out std_logic;
+    RGB_DATA        :  in  std_logic_vector((G_DUALPIXEL+1)*G_BITS_PER_PIXEL - 1 downto 0);
+    RGB_V           :  in  std_logic_vector(G_DUALPIXEL downto 0);
+    RGB_VSYNC       :  in  std_logic_vector(G_DUALPIXEL downto 0);
+    RGB_H           :  in  std_logic_vector(G_DUALPIXEL downto 0);
+    RGB_HSYNC       :  in  std_logic_vector(G_DUALPIXEL downto 0);
+    RGB_DVALID      :  in  std_logic_vector(G_DUALPIXEL downto 0);
+    RGB_F           :  in  std_logic_vector(G_DUALPIXEL downto 0);
+    RGB_UNDERFLOW   :  in  std_logic;
+    RGB_VID_CHANGE  :  in  std_logic;
+    RGB_VID_STD     :  in  std_logic_vector(G_DUALPIXEL downto 0)
+  );
+--end OpenLDI_TX;
+end ${substitute_entity_name};
+
+--architecture rtl of OpenLDI_TX is 
+architecture rtl of ${substitute_entity_name} is 
+
+  component ${substitute_lvds_entity_name}
+    port(pll_areset            : IN STD_LOGIC ;
+         tx_inclock            : IN STD_LOGIC ;
+         tx_in                 : IN STD_LOGIC_VECTOR (${width_parallel} DOWNTO 0);
+         tx_locked             : OUT STD_LOGIC ;
+         tx_outclock           : OUT STD_LOGIC ;
+         tx_coreclock          : OUT STD_LOGIC ;
+         tx_out                : OUT STD_LOGIC_VECTOR (${width_serial} DOWNTO 0));
+  end component;
+
+  component rgb2openldi
+    port(
+      CLK       : in std_logic;
+      MODE      : in std_logic;
+      RES_18BPP : in std_logic;
+      LDIDATA   : out std_logic_vector(55 downto 0);
+      RGB_RU    : in std_logic_vector(7 downto 0);
+      RGB_GU    : in std_logic_vector(7 downto 0);
+      RGB_BU    : in std_logic_vector(7 downto 0);
+      RGB_RL    : in std_logic_vector(7 downto 0);
+      RGB_GL    : in std_logic_vector(7 downto 0);
+      RGB_BL    : in std_logic_vector(7 downto 0);
+      RGB_CNTLE : in std_logic;
+      RGB_CNTLF : in std_logic;
+      RGB_DE    : in std_logic_vector(1 downto 0);
+      RGB_VSYNC : in std_logic_vector(1 downto 0);
+      RGB_HSYNC : in std_logic_vector(1 downto 0));
+  end component;
+
+  signal  ldipll_locked_int   :  std_logic;
+  signal  tx_coreclock        :  std_logic;
+  signal  ldi_parallel        :  std_logic_vector(55 downto 0);
+  signal  ldi_parallel_q      :  std_logic_vector(55 downto 0);
+  signal  ldi_txdata_in       :  std_logic_vector(((G_DUALPIXEL+1)*(G_BITS_PER_PIXEL/6) + 2) * 7 - 1 downto 0);
+  signal  ldi_txdata_out      :  std_logic_vector((G_DUALPIXEL+1)*(G_BITS_PER_PIXEL/6) + G_DUALPIXEL downto 0);
+  signal  res_18bpp           :  std_logic;
+  signal  rgb_data_ru         :  std_logic_vector(7 downto 0);
+  signal  rgb_data_gu         :  std_logic_vector(7 downto 0);
+  signal  rgb_data_bu         :  std_logic_vector(7 downto 0);
+  signal  rgb_data_rl         :  std_logic_vector(7 downto 0);
+  signal  rgb_data_gl         :  std_logic_vector(7 downto 0);
+  signal  rgb_data_bl         :  std_logic_vector(7 downto 0);
+  signal  rgb_data_de         :  std_logic_vector(1 downto 0);
+  signal  rgb_data_vs         :  std_logic_vector(1 downto 0);
+  signal  rgb_data_hs         :  std_logic_vector(1 downto 0);
+
+
+begin
+  -- Serializer for the OpenLDI interface
+  U_TXLDI : ${substitute_lvds_entity_name}
+  port map(pll_areset            => RESET,
+           tx_inclock            => LDI_CLK_IN,
+           tx_in                 => ldi_txdata_in(((G_DUALPIXEL+1)*(G_BITS_PER_PIXEL/6) + G_DUALPIXEL+1) * 7 - 1 downto 0),
+           tx_locked             => ldipll_locked_int,
+           tx_outclock           => open,
+           tx_coreclock          => tx_coreclock,
+           tx_out                => ldi_txdata_out);
+
+  ldi_txdata_in <= "1100011" & "1100011" & ldi_parallel_q((G_DUALPIXEL+1)*(G_BITS_PER_PIXEL/6)*7 - 1 downto 0);
+  LDIPLL_LOCKED <= ldipll_locked_int;
+  LDI_DATA_OUT  <= ldi_txdata_out(ldi_txdata_out'left-(G_DUALPIXEL+1) downto 0);
+  LDI_CLK_OUT   <= ldi_txdata_out(ldi_txdata_out'left downto ldi_txdata_out'left-G_DUALPIXEL);
+
+  -- Register the outgoing Serialized OpenLDI data to the write clock, which
+  --   is required by the ALTLVDS user guide.
+  P_TXLDI_BUF: process (tx_coreclock)
+  begin
+    if (tx_coreclock'event and tx_coreclock= '1') then 
+      ldi_parallel_q <= ldi_parallel;
+    end if;
+  end process P_TXLDI_BUF;
+
+  res_18bpp <= '1' when (G_BITS_PER_PIXEL = 18) else '0';
+
+  -- Decodes OpenLDI data into a parallel RGB888 
+  U_TXRGB : rgb2openldi
+  port map(CLK       => tx_coreclock,
+           MODE      => G_JEIDA_MAP(0),
+           RES_18BPP => res_18bpp,
+           LDIDATA   => ldi_parallel,
+           RGB_RU    => rgb_data_ru,
+           RGB_GU    => rgb_data_gu,
+           RGB_BU    => rgb_data_bu,
+           RGB_RL    => rgb_data_rl,
+           RGB_GL    => rgb_data_gl,
+           RGB_BL    => rgb_data_bl,
+           RGB_CNTLE => '0',
+           RGB_CNTLF => '0',
+           RGB_DE    => rgb_data_de,
+           RGB_VSYNC => rgb_data_vs,
+           RGB_HSYNC => rgb_data_hs);
+
+@@ if { $width_serial == "9" || $width_serial == "7" } {
+  rgb_data_ru(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL + G_BITS_PER_PIXEL - 1     downto G_BITS_PER_PIXEL + G_BITS_PER_PIXEL/3*2);
+  rgb_data_gu(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL + G_BITS_PER_PIXEL/3*2 - 1 downto G_BITS_PER_PIXEL + G_BITS_PER_PIXEL/3);
+  rgb_data_bu(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL + G_BITS_PER_PIXEL/3 - 1   downto G_BITS_PER_PIXEL + 0);
+  rgb_data_rl(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL - 1     downto G_BITS_PER_PIXEL/3*2);
+  rgb_data_gl(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL/3*2 - 1 downto G_BITS_PER_PIXEL/3);
+  rgb_data_bl(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL/3 - 1   downto 0);
+  rgb_data_de <= NOT (RGB_H or RGB_V);
+  rgb_data_vs <= RGB_VSYNC;
+  rgb_data_hs <= RGB_HSYNC;
+@@ } else {
+  rgb_data_ru(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL - 1     downto G_BITS_PER_PIXEL/3*2);
+  rgb_data_gu(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL/3*2 - 1 downto G_BITS_PER_PIXEL/3);
+  rgb_data_bu(G_BITS_PER_PIXEL/3-1 downto 0) <= RGB_DATA(G_BITS_PER_PIXEL/3 - 1   downto 0);
+  rgb_data_de <= NOT ((RGB_H or RGB_V) & (RGB_H or RGB_V));
+  rgb_data_vs <= (others => RGB_VSYNC(0));
+  rgb_data_hs <= (others => RGB_HSYNC(0));
+@@ }
+
+  RGB_PCLK     <= tx_coreclock;
+  RGB_PCLK_OUT <= tx_coreclock;
+
+end rtl;

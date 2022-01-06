@@ -1,0 +1,20 @@
+-- megafunction wizard: %ALTLVDS_RX%
+-- GENERATION: STANDARD
+-- VERSION: WM1.0
+-- MODULE: ALTLVDS_RX 
+-- ============================================================
+-- CNX file retrieval info
+-- ============================================================
+-- Retrieval info: PRIVATE: Bitslip NUMERIC "7"
+-- Retrieval info: PRIVATE: Clock_Mode NUMERIC "0"
+-- Retrieval info: PRIVATE: Data_rate STRING "${data_rate}"
+-- Retrieval info: PRIVATE: Deser_Factor NUMERIC "7"
+-- Retrieval info: PRIVATE: Num_Channel NUMERIC "${num_channels}"
+-- Retrieval info: PRIVATE: PLL_Freq STRING "${clk_freq}"
+-- Retrieval info: PRIVATE: Reg_InOut NUMERIC "1"
+-- Retrieval info: PRIVATE: Use_Common_Rx_Tx_Plls NUMERIC "1"
+-- Retrieval info: PRIVATE: Use_Data_Align NUMERIC "1"
+-- Retrieval info: PRIVATE: Use_Lock NUMERIC "1"
+-- Retrieval info: PRIVATE: Use_Pll_Areset NUMERIC "1"
+-- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "${device_family}"
+-- Retrieval info: USED_PORT: rx_channel_data_align

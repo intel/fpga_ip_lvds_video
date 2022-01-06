@@ -1,0 +1,12 @@
+desktop.ini
+**/db
+**/incremental_db
+**/output_files
+**/.qsys_edit
+**/*.sopcinfo
+**/tmp-clearbox
+**/*.qws
+**/*.qdf
+**/quartus/lvds_video_ed_top/*
+**/quartus/*.txt
+**/source/greybox_tmp/*

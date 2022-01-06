@@ -1,0 +1,127 @@
+TABLE OF CONTENTS
+	 LAST UPDATE - when was this project last updated?
+	     LICENSE - what licensing is used in this project?
+      RELEASES - what has changed?
+	 DOWNLOADING - how do you acquire this project?
+	 DESCRIPTION - why does this project exist?
+	    CONTENTS - what is provided in this project?
+	       USAGE - how do you use this project?
+	REQUIREMENTS - what do you need to make use of this project?
+	    SEE ALSO - other content or topics related to this project?
+
+
+LAST UPDATE
+
+Jan 6, 2022
+
+
+LICENSE
+
+This project is licensed under the MIT license.  Please see the 'LICENSE' text
+file in the top level directory of the repository for license details.
+
+
+RELEASES
+
+v1.0.0 Initial public release
+
+
+DOWNLOADING
+
+This project is stored in the public repository named 'FPGA_IP_LVDS_Video', located at
+https://github.com/intel/fpga_ip_lvds_video.  There are a number of ways that you can
+download the contents of this project.
+
+If you wish to download the entire repository, you can clone the repo using
+'git', or download an archive of the repo using a web download utility like
+'curl' or 'wget', or use the GitHub download GUI from a web browser.
+
+To clone the project repo with 'git' use a command like this:
+
+git clone https://github.com/intel/fpga_ip_lvds_video.git
+
+To download an archive of the project with 'wget' or 'curl' use a command like
+this:
+
+wget https://github.com/intel/fpga_ip_lvds_video/archive/master.zip
+curl https://github.com/intel/fpga_ip_lvds_video/archive/master.zip
+
+This is the format of the URL for archive download:
+
+https://github.com/intel/fpga_ip_lvds_video/archive/<BRANCH-NAME>.zip
+https://github.com/intel/fpga_ip_lvds_video/archive/<TAG-NAME>.zip
+https://github.com/intel/fpga_ip_lvds_video/archive/<COMMIT-HASH>.zip
+
+You can download a specific archive of the project based on the branch name that
+you would like to download, or the tag name of a commit point that you would
+like to download, or the commit hash of the commit point that you would like to
+download.  The branch name, tag name, or commit hash for any of these archive
+points can be discovered by viewing the appropriate information on the GitHub
+repository web page.
+
+
+DESCRIPTION
+
+LVDS (Low-Voltage Differential Signaling) is a common video interface found
+in many applications.  An LVDS interface that was originally known as FPD-Link
+from National was used back in the early 1990s.  National invented both FPD-Link
+and LVDS.  Eventually TI second sourced it with their FlatLink family.  This
+standard evolved to Open LDI (LVDS Display Interface) targeted at both Notebook
+and Monitor displays.  It is a reduced pin count interface (compared to parallel
+RGB888) and uses LVDS levels for lower EMI.  This interface is found as a common
+video output on many sources, and is also used as inputs to many displays. 
+Intel FPGAs and CPLDs can not only be used to economically interface with
+OpenLDI devices, but to process the video data and perform countless other
+system functions as well.  These interface blocks are designed to connect
+seamlessly with the Video and Image Processing Suite (VIP Suite) Clocked Video
+Input II (CVI) and Clocked Video Output II (CVO) components.
+
+
+DOCUMENTATION
+
+Official documentation for the LVDS Video Interface Intel® FPGA IP can be
+found within the "docs" folder of the repository.
+
+
+CONTENTS
+
+The following objects appear in the top level directory of this project.
+
+./docs
+  This directory contains documentation for the IP.
+
+./quartus
+  This directory contains a basic example design which uses the LVDS Video
+  Interface.  Its purpose is to demonstrate the interconnect to/from the
+  Intel VIP clocked video components.
+
+./source
+  This directory contains all of the design files for the Multi-Rail Power
+  Sequencer and Monitor design.
+
+
+USAGE
+
+Please refer to the user documentation, as well as the example design in the
+./quartus directory for usage.  The source directory can either be contained
+within a stand-alone project (as is done in the project archive), or copied
+to a directory of library components and referenced by the Quartus project.
+The "LVDS_VideoIP.doc" document contains details on how to parameterize,
+simulate, and compile the design.
+
+
+REQUIREMENTS
+
+This project development began in the Quartus Prime 15.0 tools environment but
+it should work fine in future tools releases as well.  Because this IP leverages
+specific LVDS primitives, it has been developed to support the following device
+families: Stratix V, Arria 10, Arria V, Arria V GZ, Cyclone IV, Cyclone IV E,
+Cyclone V, MAX 10.
+
+
+SEE ALSO
+
+For more information about Platform Designer, please see this landing page on
+Intel.com which points to numerous Platform Designer support resources including
+documentation, training materials, tutorials, specifications, etc:
+https://www.intel.com/content/www/us/en/programmable/support/support-resources/design-software/qsys.html

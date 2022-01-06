@@ -1,0 +1,269 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+*/
+(header "graphic" (version "1.4"))
+(pin
+	(input)
+	(rect 104 264 272 280)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "RESET_N" (rect 5 0 54 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 64 304 272 320)
+	(text "INPUT" (rect 165 0 193 10)(font "Arial" (font_size 6)))
+	(text "LVDS_DATA_IN[3..0]" (rect 5 0 111 12)(font "Arial" ))
+	(pt 208 8)
+	(drawing
+		(line (pt 124 12)(pt 149 12))
+		(line (pt 124 4)(pt 149 4))
+		(line (pt 153 8)(pt 208 8))
+		(line (pt 124 12)(pt 124 4))
+		(line (pt 149 4)(pt 153 8))
+		(line (pt 149 12)(pt 153 8))
+	)
+	(text "VCC" (rect 168 7 188 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 96 224 272 240)
+	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
+	(text "LVDS_CLK_IN" (rect 5 0 78 12)(font "Arial" ))
+	(pt 176 8)
+	(drawing
+		(line (pt 92 12)(pt 117 12))
+		(line (pt 92 4)(pt 117 4))
+		(line (pt 121 8)(pt 176 8))
+		(line (pt 92 12)(pt 92 4))
+		(line (pt 117 4)(pt 121 8))
+		(line (pt 117 12)(pt 121 8))
+	)
+	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(output)
+	(rect 96 456 272 472)
+	(text "OUTPUT" (rect 137 6 175 16)(font "Arial" (font_size 6)))
+	(text "LVDS_CLK_OUT" (rect 5 4 88 16)(font "Arial" ))
+	(pt 176 8)
+	(drawing
+		(line (pt 176 8)(pt 124 8))
+		(line (pt 124 12)(pt 98 12))
+		(line (pt 124 4)(pt 98 4))
+		(line (pt 124 4)(pt 124 12))
+		(line (pt 98 12)(pt 94 8))
+		(line (pt 94 8)(pt 98 4))
+		(line (pt 98 4)(pt 94 8))
+	)
+	(rotate180)
+)
+(pin
+	(output)
+	(rect 64 472 272 488)
+	(text "OUTPUT" (rect 169 6 207 16)(font "Arial" (font_size 6)))
+	(text "LVDS_DATA_OUT[3..0]" (rect 5 4 121 16)(font "Arial" ))
+	(pt 208 8)
+	(drawing
+		(line (pt 208 8)(pt 156 8))
+		(line (pt 156 12)(pt 130 12))
+		(line (pt 156 4)(pt 130 4))
+		(line (pt 156 4)(pt 156 12))
+		(line (pt 130 12)(pt 126 8))
+		(line (pt 126 8)(pt 130 4))
+		(line (pt 130 4)(pt 126 8))
+	)
+	(rotate180)
+)
+(symbol
+	(rect 312 160 632 512)
+	(text "lvds_video_ed_top" (rect 106 -1 228 15)(font "Arial" (font_size 10)))
+	(text "U_LVDSTOP" (rect 8 336 71 348)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "clk_lvdsref_clk" (rect 0 0 84 14)(font "Arial" (font_size 8)))
+		(text "clk_lvdsref_clk" (rect 4 61 88 75)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 128 72))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "reset_reset_n" (rect 0 0 80 14)(font "Arial" (font_size 8)))
+		(text "reset_reset_n" (rect 4 101 84 115)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 128 112))
+	)
+	(port
+		(pt 0 152)
+		(input)
+		(text "rxldi_data_ldi_data[3..0]" (rect 0 0 134 14)(font "Arial" (font_size 8)))
+		(text "rxldi_data_ldi_data[3..0]" (rect 4 141 138 155)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 128 152)(line_width 3))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "rxldi_misc_slip[3..0]" (rect 0 0 110 14)(font "Arial" (font_size 8)))
+		(text "rxldi_misc_slip[3..0]" (rect 4 197 114 211)(font "Arial" (font_size 8)))
+		(line (pt 0 208)(pt 128 208)(line_width 3))
+	)
+	(port
+		(pt 0 192)
+		(output)
+		(text "rxldi_misc_pll_locked" (rect 0 0 119 14)(font "Arial" (font_size 8)))
+		(text "rxldi_misc_pll_locked" (rect 4 181 123 195)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 128 192))
+	)
+	(port
+		(pt 0 224)
+		(output)
+		(text "rxldi_misc_slip_ack[3..0]" (rect 0 0 138 14)(font "Arial" (font_size 8)))
+		(text "rxldi_misc_slip_ack[3..0]" (rect 4 213 142 227)(font "Arial" (font_size 8)))
+		(line (pt 0 224)(pt 128 224)(line_width 3))
+	)
+	(port
+		(pt 0 264)
+		(output)
+		(text "txldi_misc_pll_locked" (rect 0 0 118 14)(font "Arial" (font_size 8)))
+		(text "txldi_misc_pll_locked" (rect 4 253 122 267)(font "Arial" (font_size 8)))
+		(line (pt 0 264)(pt 128 264))
+	)
+	(port
+		(pt 0 304)
+		(output)
+		(text "txldi_out_ldi_clk" (rect 0 0 88 14)(font "Arial" (font_size 8)))
+		(text "txldi_out_ldi_clk" (rect 4 293 92 307)(font "Arial" (font_size 8)))
+		(line (pt 0 304)(pt 128 304))
+	)
+	(port
+		(pt 0 320)
+		(output)
+		(text "txldi_out_ldi_data[3..0]" (rect 0 0 126 14)(font "Arial" (font_size 8)))
+		(text "txldi_out_ldi_data[3..0]" (rect 4 309 130 323)(font "Arial" (font_size 8)))
+		(line (pt 0 320)(pt 128 320)(line_width 3))
+	)
+	(drawing
+		(text "clk_lvdsref" (rect 65 43 134 58)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 133 67 147 79)(font "Arial" (color 0 0 0)))
+		(text "reset" (rect 99 83 132 98)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "reset_n" (rect 133 107 169 119)(font "Arial" (color 0 0 0)))
+		(text "rxldi_data" (rect 72 123 134 138)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "ldi_data" (rect 133 147 170 159)(font "Arial" (color 0 0 0)))
+		(text "rxldi_misc" (rect 70 163 136 178)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "pll_locked" (rect 133 187 181 199)(font "Arial" (color 0 0 0)))
+		(text "slip" (rect 133 203 149 215)(font "Arial" (color 0 0 0)))
+		(text "slip_ack" (rect 133 219 173 231)(font "Arial" (color 0 0 0)))
+		(text "txldi_misc" (rect 71 235 135 250)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "pll_locked" (rect 133 259 181 271)(font "Arial" (color 0 0 0)))
+		(text "txldi_out" (rect 80 275 133 290)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "ldi_clk" (rect 133 299 163 311)(font "Arial" (color 0 0 0)))
+		(text "ldi_data" (rect 133 315 170 327)(font "Arial" (color 0 0 0)))
+		(text " lvds_video_ed_top " (rect 235 336 335 348)(font "Arial" ))
+		(line (pt 128 32)(pt 192 32))
+		(line (pt 192 32)(pt 192 336))
+		(line (pt 128 336)(pt 192 336))
+		(line (pt 128 32)(pt 128 336))
+		(line (pt 129 52)(pt 129 76))
+		(line (pt 130 52)(pt 130 76))
+		(line (pt 129 92)(pt 129 116))
+		(line (pt 130 92)(pt 130 116))
+		(line (pt 129 132)(pt 129 156))
+		(line (pt 130 132)(pt 130 156))
+		(line (pt 129 172)(pt 129 228))
+		(line (pt 130 172)(pt 130 228))
+		(line (pt 129 244)(pt 129 268))
+		(line (pt 130 244)(pt 130 268))
+		(line (pt 129 284)(pt 129 324))
+		(line (pt 130 284)(pt 130 324))
+		(line (pt 0 0)(pt 320 0))
+		(line (pt 320 0)(pt 320 352))
+		(line (pt 0 352)(pt 320 352))
+		(line (pt 0 0)(pt 0 352))
+	)
+)
+(symbol
+	(rect 160 336 272 384)
+	(text "LPM_CONSTANT" (rect 4 0 125 16)(font "Arial" (font_size 10)))
+	(text "inst1" (rect 3 37 30 51)(font "Arial" (font_size 8)))
+	(port
+		(pt 112 32)
+		(output)
+		(text "result[LPM_WIDTH-1..0]" (rect 75 19 208 33)(font "Arial" (font_size 8)))
+		(text "result[]" (rect 75 19 113 33)(font "Arial" (font_size 8)))
+		(line (pt 64 32)(pt 112 32)(line_width 3))
+	)
+	(parameter
+		"LPM_CVALUE"
+		"1"
+		"Unsigned value to which outputs will be set"
+	)
+	(parameter
+		"LPM_WIDTH"
+		"4"
+		"Width of output, any integer > 0"
+		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" "13" "14" "15" "16" "20" "24" "28" "32" 
+	)
+	(drawing
+		(text "(cvalue)" (rect 21 26 68 40)(font "Arial" (font_size 8)))
+		(line (pt 16 24)(pt 64 24))
+		(line (pt 16 40)(pt 64 40))
+		(line (pt 64 40)(pt 64 24))
+		(line (pt 16 40)(pt 16 24))
+	)
+	(annotation_block (parameter)(rect 16 336 153 393))
+)
+(connector
+	(pt 272 232)
+	(pt 312 232)
+)
+(connector
+	(pt 272 272)
+	(pt 312 272)
+)
+(connector
+	(pt 272 312)
+	(pt 312 312)
+	(bus)
+)
+(connector
+	(pt 272 368)
+	(pt 312 368)
+	(bus)
+)
+(connector
+	(pt 272 464)
+	(pt 312 464)
+)
+(connector
+	(pt 272 480)
+	(pt 312 480)
+	(bus)
+)
+(text "Set default RX alignment to a bit slip of \"1\"" (rect -8 392 248 411)(font "Intel Clear" (font_size 8)))
