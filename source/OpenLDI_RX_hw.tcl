@@ -32,7 +32,7 @@ set_module_property REPORT_TO_TALKBACK false
 set_module_property ALLOW_GREYBOX_GENERATION false
 set_module_property REPORT_HIERARCHY false
 set_module_property ELABORATION_CALLBACK elaborate
-set_module_property SUPPORTED_DEVICE_FAMILIES {{Stratix V} {Arria 10} {Arria V} {Arria V GZ} {Cyclone IV} {Cyclone IV E}  {Cyclone V} {MAX 10}}
+set_module_property SUPPORTED_DEVICE_FAMILIES {{Stratix 10} {Stratix V} {Arria 10} {Arria V} {Arria V GZ} {Cyclone IV} {Cyclone IV E} {Cyclone V} {MAX 10}}
 
 
 # 
@@ -50,7 +50,7 @@ add_fileset SIM_VHDL SIM_VHDL generate
 add_parameter "DEVICE_FAMILY" string "Stratix V"
 set_parameter_property "DEVICE_FAMILY" HDL_PARAMETER true
 set_parameter_property "DEVICE_FAMILY" DISPLAY_NAME "Device family"
-set_parameter_property "DEVICE_FAMILY" ALLOWED_RANGES { "Arria 10" "MAX 10" "Stratix V" "Arria V" "Arria V GZ" "Cyclone V" "Cyclone IV E" "Cyclone IV GX" }
+set_parameter_property "DEVICE_FAMILY" ALLOWED_RANGES { "Stratix 10" "Arria 10" "MAX 10" "Stratix V" "Arria V" "Arria V GZ" "Cyclone V" "Cyclone IV E" "Cyclone IV GX" }
 set_parameter_property "DEVICE_FAMILY" DESCRIPTION "Displays the device family"
 set_parameter_property "DEVICE_FAMILY" AFFECTS_GENERATION true
 set_parameter_property "DEVICE_FAMILY" ENABLED 0
@@ -311,6 +311,12 @@ proc generate { entity_name } {
 #     RX LVDS IP for 10-series and newer device families.
 #
 proc elaborate {} {
+#add_interface RGB_clk clock source
+#set_interface_property RGB_clk associatedDirectClock "LDI_clk"
+#add_interface_port RGB_clk RGB_PCLK_OUT clk Output 1
+set_interface_property RGB_clk clockRate [expr ([get_parameter_value G_DATA_RATE] * 1000000 / 7)]
+set_interface_property RGB_clk clockRateKnown true
+
   if {[ get_parameter_value GT_JEIDA_MAP ] } {
     set_parameter_value G_JEIDA_MAP 1
   } else {
@@ -347,11 +353,17 @@ proc elaborate {} {
   #
   set DEVICE_FAMILY   [ get_parameter_value DEVICE_FAMILY ]
   # Create the "Altera LVDS SerDes" IP, if we are targeting an Arria 10 device
-  if {[ get_parameter_value DEVICE_FAMILY ]  == "Arria 10" } {
+  if {[expr {"$DEVICE_FAMILY" == "Arria 10"} || {"$DEVICE_FAMILY" == "Stratix 10"} ]} {
     set P_DATARATE [format "%.1f" [ get_parameter_value G_DATA_RATE ] ]
     set P_CLKFREQ  [format "%.8f" [expr [get_parameter_value G_DATA_RATE] / 7.0 ]]
     add_hdl_instance RXLDI_LVDS altera_lvds
     #set_instance_parameter_value RXLDI_LVDS ENABLE_MIGRATABLE_PORT_MAPPINGS "true"
+    if {[expr {"$DEVICE_FAMILY" == "Arria 10"} ]} {
+      set_instance_parameter_value RXLDI_LVDS PLL_CORECLOCK_RESOURCE "Auto"
+    }
+    if {[expr {"$DEVICE_FAMILY" == "Stratix 10"} ]} {
+      set_instance_parameter_value RXLDI_LVDS CPA_ENABLED "true"
+    }
     set_instance_parameter_value RXLDI_LVDS GENERATE_SDC_FILE "true"
     set_instance_parameter_value RXLDI_LVDS MODE "RX_Non-DPA"
     set_instance_parameter_value RXLDI_LVDS RX_INCLOCK_PHASE_SHIFT "0"

@@ -83,7 +83,7 @@ architecture rtl of ${substitute_entity_name} is
 
   component ${substitute_lvds_entity_name}
     port(pll_areset            : IN STD_LOGIC ;
-@@ if { $device_family == "Arria 10"  } {
+@@ if { $device_family == "Stratix 10" || $device_family == "Arria 10" } {
          rx_bitslip_ctrl       : IN STD_LOGIC_VECTOR (${width_serial} DOWNTO 0);
          inclock               : IN STD_LOGIC ;
          rx_coreclock          : OUT STD_LOGIC ;
@@ -136,6 +136,9 @@ architecture rtl of ${substitute_entity_name} is
   signal  rgb_data_vs         :  std_logic_vector(1 downto 0);
   signal  rgb_data_hs         :  std_logic_vector(1 downto 0);
 
+  -- This is required to prevent an error about unused deserializer data bits
+  attribute noprune: boolean;
+  attribute noprune of ldi_parallel_q: signal is true;
 
 begin
   -- Combine the internal reset with the state of the RXPLL locked signal
@@ -157,7 +160,7 @@ begin
 
   -- Deserializer for the OpenLDI interface
   U_RXLDI : ${substitute_lvds_entity_name}
-@@ if { $device_family == "Arria 10"  } {
+@@ if { $device_family == "Stratix 10" || $device_family == "Arria 10" } {
   port map(pll_areset            => RESET,
            rx_bitslip_ctrl       => rx_align,
            inclock               => LDI_CLK_IN,

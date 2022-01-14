@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "7";
          type = "int";
       }
    }
@@ -21,7 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "4";
          type = "int";
       }
    }
@@ -29,7 +29,23 @@
    {
       datum _sortIndex
       {
+         value = "10";
+         type = "int";
+      }
+   }
+   element TimingAdapter_0
+   {
+      datum _sortIndex
+      {
          value = "6";
+         type = "int";
+      }
+   }
+   element TimingAdapter_1
+   {
+      datum _sortIndex
+      {
+         value = "8";
          type = "int";
       }
    }
@@ -37,7 +53,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "5";
          type = "int";
       }
    }
@@ -45,15 +61,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
-         type = "int";
-      }
-   }
-   element clk_LVDSREF
-   {
-      datum _sortIndex
-      {
-         value = "0";
+         value = "9";
          type = "int";
       }
    }
@@ -61,16 +69,40 @@
    {
       datum _sortIndex
       {
+         value = "2";
+         type = "int";
+      }
+   }
+   element clk_RXLVDS
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+   element clk_TXLVDS
+   {
+      datum _sortIndex
+      {
          value = "1";
+         type = "int";
+      }
+   }
+   element reset_in
+   {
+      datum _sortIndex
+      {
+         value = "3";
          type = "int";
       }
    }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
- <parameter name="device" value="5CGXFC7C7F23C8" />
- <parameter name="deviceFamily" value="Cyclone V" />
- <parameter name="deviceSpeedGrade" value="8_H7" />
+ <parameter name="device" value="10AX016C3U19E2LG" />
+ <parameter name="deviceFamily" value="Arria 10" />
+ <parameter name="deviceSpeedGrade" value="2" />
  <parameter name="fabricMode" value="QSYS" />
  <parameter name="generateLegacySim" value="false" />
  <parameter name="generationId" value="0" />
@@ -86,12 +118,9 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface
-   name="clk_lvdsref"
-   internal="clk_LVDSREF.in_clk"
-   type="clock"
-   dir="end" />
- <interface name="reset" internal="clk_PCLK.clk_in_reset" type="reset" dir="end" />
+ <interface name="clk_rxlvds" internal="clk_RXLVDS.in_clk" type="clock" dir="end" />
+ <interface name="clk_txlvds" internal="clk_TXLVDS.in_clk" type="clock" dir="end" />
+ <interface name="reset" internal="reset_in.in_reset" type="reset" dir="end" />
  <interface
    name="rxldi_data"
    internal="OpenLDI_RX_0.LDI_data"
@@ -131,8 +160,8 @@
   <parameter name="WR_SYNC_DEPTH" value="3" />
  </module>
  <module name="OpenLDI_RX_0" kind="OpenLDI_RX" version="1.0" enabled="1">
-  <parameter name="DEVICE" value="5CGXFC7C7F23C8" />
-  <parameter name="DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="DEVICE" value="10AX016C3U19E2LG" />
+  <parameter name="DEVICE_FAMILY" value="Arria 10" />
   <parameter name="GT_ALIGNMENT_VEC" value="0" />
   <parameter name="GT_DUALPIXEL" value="false" />
   <parameter name="GT_JEIDA_MAP" value="true" />
@@ -140,13 +169,71 @@
   <parameter name="G_DATA_RATE" value="700.0" />
  </module>
  <module name="OpenLDI_TX_0" kind="OpenLDI_TX" version="1.0" enabled="1">
-  <parameter name="DEVICE" value="5CGXFC7C7F23C8" />
-  <parameter name="DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="DEVICE" value="10AX016C3U19E2LG" />
+  <parameter name="DEVICE_FAMILY" value="Arria 10" />
   <parameter name="GT_CONTROLINTF" value="false" />
   <parameter name="GT_DUALPIXEL" value="false" />
   <parameter name="GT_JEIDA_MAP" value="true" />
   <parameter name="G_BITS_PER_PIXEL" value="24" />
   <parameter name="G_DATA_RATE" value="700.0" />
+ </module>
+ <module
+   name="TimingAdapter_0"
+   kind="altera_avalon_st_adapter"
+   version="20.1"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="10AX016C3U19E2LG" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Arria 10" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inDataWidth" value="24" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="1" />
+  <parameter name="inUseEmptyPort" value="0" />
+  <parameter name="inUsePackets" value="1" />
+  <parameter name="inUseReady" value="1" />
+  <parameter name="inUseValid" value="1" />
+  <parameter name="outChannelWidth" value="0" />
+  <parameter name="outDataWidth" value="24" />
+  <parameter name="outErrorDescriptor" value="" />
+  <parameter name="outErrorWidth" value="0" />
+  <parameter name="outMaxChannel" value="0" />
+  <parameter name="outReadyLatency" value="0" />
+  <parameter name="outUseEmptyPort" value="1" />
+  <parameter name="outUseReady" value="1" />
+  <parameter name="outUseValid" value="1" />
+ </module>
+ <module
+   name="TimingAdapter_1"
+   kind="altera_avalon_st_adapter"
+   version="20.1"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="10AX016C3U19E2LG" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Arria 10" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inDataWidth" value="24" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="0" />
+  <parameter name="inUseEmptyPort" value="1" />
+  <parameter name="inUsePackets" value="1" />
+  <parameter name="inUseReady" value="1" />
+  <parameter name="inUseValid" value="1" />
+  <parameter name="outChannelWidth" value="0" />
+  <parameter name="outDataWidth" value="24" />
+  <parameter name="outErrorDescriptor" value="" />
+  <parameter name="outErrorWidth" value="0" />
+  <parameter name="outMaxChannel" value="0" />
+  <parameter name="outReadyLatency" value="1" />
+  <parameter name="outUseEmptyPort" value="0" />
+  <parameter name="outUseReady" value="1" />
+  <parameter name="outUseValid" value="1" />
  </module>
  <module
    name="alt_vip_cl_cvi_0"
@@ -155,9 +242,9 @@
    enabled="1">
   <parameter name="ACCEPT_COLOURS_IN_SEQ" value="0" />
   <parameter name="ANC_DEPTH" value="1" />
-  <parameter name="AUTO_DEVICE" value="5CGXFC7C7F23C8" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="8_H7" />
+  <parameter name="AUTO_DEVICE" value="10AX016C3U19E2LG" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Arria 10" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
   <parameter name="BPS" value="8" />
   <parameter name="CLOCKS_ARE_SAME" value="0" />
   <parameter name="COLOUR_PLANES_ARE_IN_PARALLEL" value="1" />
@@ -191,9 +278,9 @@
   <parameter name="ACCEPT_SYNC" value="0" />
   <parameter name="ANC_LINE" value="0" />
   <parameter name="AP_LINE" value="0" />
-  <parameter name="AUTO_DEVICE" value="5CGXFC7C7F23C8" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="8_H7" />
+  <parameter name="AUTO_DEVICE" value="10AX016C3U19E2LG" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Arria 10" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
   <parameter name="BPS" value="8" />
   <parameter name="CLOCKS_ARE_SAME" value="0" />
   <parameter name="COLOUR_PLANES_ARE_IN_PARALLEL" value="1" />
@@ -233,8 +320,13 @@
   <parameter name="V_FRONT_PORCH" value="4" />
   <parameter name="V_SYNC_LENGTH" value="5" />
  </module>
+ <module name="clk_PCLK" kind="altera_clock_bridge" version="20.1" enabled="1">
+  <parameter name="DERIVED_CLOCK_RATE" value="100000000" />
+  <parameter name="EXPLICIT_CLOCK_RATE" value="0" />
+  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
+ </module>
  <module
-   name="clk_LVDSREF"
+   name="clk_RXLVDS"
    kind="altera_clock_bridge"
    version="20.1"
    enabled="1">
@@ -242,27 +334,52 @@
   <parameter name="EXPLICIT_CLOCK_RATE" value="100000000" />
   <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
  </module>
- <module name="clk_PCLK" kind="clock_source" version="20.1" enabled="1">
-  <parameter name="clockFrequency" value="100000000" />
-  <parameter name="clockFrequencyKnown" value="true" />
-  <parameter name="inputClockFrequency" value="0" />
-  <parameter name="resetSynchronousEdges" value="NONE" />
+ <module
+   name="clk_TXLVDS"
+   kind="altera_clock_bridge"
+   version="20.1"
+   enabled="1">
+  <parameter name="DERIVED_CLOCK_RATE" value="0" />
+  <parameter name="EXPLICIT_CLOCK_RATE" value="100000000" />
+  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
+ </module>
+ <module name="reset_in" kind="altera_reset_bridge" version="20.1" enabled="1">
+  <parameter name="ACTIVE_LOW_RESET" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
+  <parameter name="NUM_RESET_OUTPUTS" value="1" />
+  <parameter name="SYNCHRONOUS_EDGES" value="none" />
+  <parameter name="USE_RESET_REQUEST" value="0" />
  </module>
  <connection
    kind="avalon_streaming"
    version="20.1"
    start="alt_vip_cl_cvi_0.dout_0"
-   end="FIFO_PhaseComp.in" />
+   end="TimingAdapter_0.in_0" />
  <connection
    kind="avalon_streaming"
    version="20.1"
    start="FIFO_PhaseComp.out"
+   end="TimingAdapter_1.in_0" />
+ <connection
+   kind="avalon_streaming"
+   version="20.1"
+   start="TimingAdapter_1.out_0"
    end="alt_vip_cl_cvo_0.din" />
+ <connection
+   kind="avalon_streaming"
+   version="20.1"
+   start="TimingAdapter_0.out_0"
+   end="FIFO_PhaseComp.in" />
  <connection
    kind="clock"
    version="20.1"
    start="OpenLDI_RX_0.RGB_clk"
-   end="clk_PCLK.clk_in" />
+   end="clk_PCLK.in_clk" />
+ <connection
+   kind="clock"
+   version="20.1"
+   start="OpenLDI_TX_0.RGB_clk"
+   end="TimingAdapter_1.in_clk_0" />
  <connection
    kind="clock"
    version="20.1"
@@ -276,23 +393,28 @@
  <connection
    kind="clock"
    version="20.1"
-   start="clk_PCLK.clk"
-   end="FIFO_PhaseComp.in_clk" />
- <connection
-   kind="clock"
-   version="20.1"
-   start="clk_PCLK.clk"
-   end="alt_vip_cl_cvi_0.main_clock" />
- <connection
-   kind="clock"
-   version="20.1"
-   start="clk_LVDSREF.out_clk"
+   start="clk_RXLVDS.out_clk"
    end="OpenLDI_RX_0.LDI_clk" />
  <connection
    kind="clock"
    version="20.1"
-   start="clk_LVDSREF.out_clk"
+   start="clk_TXLVDS.out_clk"
    end="OpenLDI_TX_0.LDI_refclk" />
+ <connection
+   kind="clock"
+   version="20.1"
+   start="clk_PCLK.out_clk"
+   end="FIFO_PhaseComp.in_clk" />
+ <connection
+   kind="clock"
+   version="20.1"
+   start="clk_PCLK.out_clk"
+   end="TimingAdapter_0.in_clk_0" />
+ <connection
+   kind="clock"
+   version="20.1"
+   start="clk_PCLK.out_clk"
+   end="alt_vip_cl_cvi_0.main_clock" />
  <connection
    kind="conduit"
    version="20.1"
@@ -318,33 +440,43 @@
  <connection
    kind="reset"
    version="20.1"
-   start="clk_PCLK.clk_reset"
+   start="reset_in.out_reset"
    end="FIFO_PhaseComp.in_clk_reset" />
  <connection
    kind="reset"
    version="20.1"
-   start="clk_PCLK.clk_reset"
+   start="reset_in.out_reset"
+   end="TimingAdapter_0.in_rst_0" />
+ <connection
+   kind="reset"
+   version="20.1"
+   start="reset_in.out_reset"
+   end="TimingAdapter_1.in_rst_0" />
+ <connection
+   kind="reset"
+   version="20.1"
+   start="reset_in.out_reset"
    end="alt_vip_cl_cvi_0.main_reset" />
  <connection
    kind="reset"
    version="20.1"
-   start="clk_PCLK.clk_reset"
+   start="reset_in.out_reset"
    end="alt_vip_cl_cvo_0.main_reset" />
  <connection
    kind="reset"
    version="20.1"
-   start="clk_PCLK.clk_reset"
+   start="reset_in.out_reset"
    end="FIFO_PhaseComp.out_clk_reset" />
  <connection
    kind="reset"
    version="20.1"
-   start="clk_PCLK.clk_reset"
-   end="OpenLDI_TX_0.reset" />
+   start="reset_in.out_reset"
+   end="OpenLDI_RX_0.reset" />
  <connection
    kind="reset"
    version="20.1"
-   start="clk_PCLK.clk_reset"
-   end="OpenLDI_RX_0.reset" />
+   start="reset_in.out_reset"
+   end="OpenLDI_TX_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
